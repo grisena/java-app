@@ -1,18 +1,11 @@
-pipeline {
-    agent any
-
-    stages {
-        stage("Build") {
-            steps {
-                sh "mvn -version"
-                sh "mvn clean install"
-            }
+    node {
+        stage("SCM Checkout") {
+            git 'https://github.com/grisena/java-app.git'
         }
-    }
+    
 
-    post {
-        always {
-            cleanWs()
-        }
+		stage ('Compile-Package'){
+		def mvnHome = tool name: 'maven-3', type: 'maven'
+		sh "${mvnHome}/bin/mvn package"
     }
 }
