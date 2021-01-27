@@ -5,9 +5,10 @@
     } 
     stages {
         stage("SCM Checkout") {
-            Checkout SCM
+            script {
+            checkout scm
+         }
         }
-    
 
 		stage ('Compile-Package'){
 		sh 'mvn clean compile test-compile'
