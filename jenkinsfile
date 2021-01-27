@@ -40,9 +40,7 @@
         bat  "mvn clean install"
      }
     }
-   }
-       
-
+    
 stage('Build image') { 
      steps {
        container('docker') {
@@ -52,6 +50,9 @@ stage('Build image') {
                 }    
             }
      }
+   
+       
+
 post {
         always {
             archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
