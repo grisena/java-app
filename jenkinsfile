@@ -48,6 +48,7 @@
        }
 
 stage('Build image') {
+     steps {
        container('docker') {
                     script {
                         //registryIp = sh(script: 'getent hosts registry.kube-system | awk \'{ print $1 ; exit }\'', returnStdout: true).trim()
@@ -56,3 +57,4 @@ stage('Build image') {
                     }
                 }    }
 }
+  }
