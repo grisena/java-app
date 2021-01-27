@@ -1,11 +1,16 @@
-    node {
+  pipeline {
+ 
+    options {
+        skipDefaultCheckout true
+    } 
+    stages {
         stage("SCM Checkout") {
-            git 'https://github.com/grisena/java-app.git'
+            Checkout SCM
         }
     
 
 		stage ('Compile-Package'){
-		def mvnHome = tool name: 'maven-3', type: 'maven'
-		sh "${mvnHome}/bin/mvn package"
+		sh 'mvn clean compile test-compile'
     }
+   }
 }
