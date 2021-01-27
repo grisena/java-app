@@ -41,20 +41,20 @@
      }
     }
    }
-       post {
+       
+
+stage('Build image') { 
+     steps {
+       container('docker') {
+                    script {
+                        customImage = docker.build("${DOCKER_REGISTRY}/demo/app:${revision}", "--build-arg REVISION=${revision} -f Dockerfile .")
+                    }
+                }    
+            }
+     }
+post {
         always {
             archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
        }
-
-stage('Build image') {
-     steps {
-       container('docker') {
-                    script {
-                        //registryIp = sh(script: 'getent hosts registry.kube-system | awk \'{ print $1 ; exit }\'', returnStdout: true).trim()
-                        //sh "docker build . -t ${DOCKER_REGISTRY}/demo/app:${revision} --build-arg REVISION=${revision}"
-                        customImage = docker.build("${DOCKER_REGISTRY}/demo/app:${revision}", "--build-arg REVISION=${revision} -f Dockerfile .")
-                    }
-                }    }
 }
-  }
