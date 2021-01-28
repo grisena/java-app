@@ -7,27 +7,27 @@
 
         dockerImage = '' 
 
-    }
+                 }
     agent any
     options {
         skipDefaultCheckout true
-    } 
+            } 
     stages {
         stage("SCM Checkout") {
             steps {
              script {
             checkout scm
-             }
-            }
+                    }
+                  }
         }
 
 		stage ('Compile-Package'){
             steps {
 		bat "mvn -version"
         bat  "mvn clean install"
-     }
-    }
-   }
+                  }
+        }
+   
    stage('Building our image') { 
 
             steps { 
@@ -64,4 +64,5 @@
             archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
        }
+ }
 }
